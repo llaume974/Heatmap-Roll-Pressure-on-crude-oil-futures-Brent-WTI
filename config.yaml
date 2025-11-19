@@ -1,0 +1,79 @@
+# Heatmap Roll Pressure Configuration
+# ====================================
+
+# Markets to monitor
+markets:
+  - wti     # NYMEX Crude Oil
+  - brent   # ICE Brent Crude
+
+# Roll pressure thresholds (normalized 0-1 scale)
+thresholds:
+  green_max: 0.35      # Below this = low pressure (green)
+  orange_max: 0.50     # Between green and this = medium (orange)
+  # Above orange_max = high pressure (red)
+
+# Alert configuration
+alert:
+  days_threshold: 2          # Alert if positioning high and <= 2 days to expiry
+  pos_score_threshold: 0.80  # PosScore must exceed this (80th percentile)
+  roll_pressure_threshold: 0.50  # Alternative: composite RollPressure threshold
+
+# Heatmap display settings
+heatmap:
+  lookback_days: 60    # Number of days to show in heatmap
+  figsize_width: 14
+  figsize_height: 6
+  cmap: 'RdYlGn_r'     # Red-Yellow-Green reversed (red=high)
+
+# Data sources
+data_sources:
+  cftc:
+    # Socrata API configuration
+    api_domain: 'publicreporting.cftc.gov'
+    dataset_id: '72hh-3qpy'  # Disaggregated Futures Only
+    api_url: 'https://publicreporting.cftc.gov/resource/72hh-3qpy.json'
+    update_day: 'Friday'  # CFTC publishes weekly on Friday
+
+  yahoo_finance:
+    wti_symbol: 'CL=F'
+    brent_symbol: 'BZ=F'
+
+# CFTC market identification
+cftc_mapping:
+  wti:
+    market_name: 'CRUDE OIL, LIGHT SWEET - NEW YORK MERCANTILE EXCHANGE'
+    cftc_code: '067651'  # NYMEX WTI code
+  brent:
+    market_name: 'BRENT CRUDE OIL LAST DAY - ICE FUTURES EUROPE'
+    cftc_code: '0B3'     # ICE Brent code (verify)
+
+# Roll pressure calculation
+calculation:
+  min_value: 0.0       # Floor for roll pressure (normalized 0-1 scale)
+  max_value: 1.0       # Ceiling for roll pressure (normalized 0-1 scale)
+  min_open_interest: 1000  # Minimum OI to consider valid
+  time_weight_alpha: 1.0   # Alpha parameter for time weight: (1+α)/(d+α)
+  lookback_percentile: 252 # Days for percentile calculation (1 trading year)
+
+# File paths
+paths:
+  data_raw: 'data/raw'
+  data_processed: 'data/processed'
+  output: 'output'
+  calendar: 'calendar/contracts.csv'
+
+# Output files
+output_files:
+  excel: 'output/roll_pressure_latest.xlsx'
+  heatmap_png: 'output/heatmap_roll_pressure.png'
+  heatmap_html: 'output/heatmap_roll_pressure.html'
+
+# Logging
+logging:
+  level: 'INFO'       # DEBUG, INFO, WARNING, ERROR
+  format: '<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>'
+
+# Cache settings
+cache:
+  enabled: true
+  max_age_days: 7     # Re-download data if older than this
