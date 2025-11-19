@@ -1,7 +1,6 @@
 # Heatmap Roll Pressure on crude oil futures Brent/WTI
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 **Système d'alerte automatique pour détecter les fenêtres de roll agressives sur futures pétrole**
 
@@ -395,7 +394,7 @@ Pistes d'amélioration identifiées:
 
 ## 12. Contact & Contribution
 
-**Auteur**: [ATTILA Guillaume]
+**Auteur**: ATTILA Guillaume
 **GitHub**: [https://github.com/llaume974](https://github.com/llaume974)
 
 Contributions bienvenues via Pull Requests!
