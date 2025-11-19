@@ -265,6 +265,8 @@ streamlit run app.py --server.port 8502
 
 L'interface s'ouvre automatiquement sur **http://localhost:8501**
 
+![Schéma du roll pressure](images/schema-roll-pressure.png)
+
 #### Fonctionnalités de l'interface web
 
 **Page 1: Dashboard** 🎯
