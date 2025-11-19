@@ -1,4 +1,4 @@
-# Roll Pressure Heatmap – Brent/WTI
+# Heatmap Roll Pressure on crude oil futures Brent/WTI
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
